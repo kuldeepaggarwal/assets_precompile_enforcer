@@ -47,6 +47,13 @@ module Sprockets
           "#{source}.#{ext}"
         end
       end
+
+      def exact_match_present?(source)
+        pathname = asset_environment.resolve(source)
+        pathname.to_s =~ /#{ Regexp.escape(source) }\Z/
+      rescue Sprockets::FileNotFound
+        false
+      end
     end
   end
 end
